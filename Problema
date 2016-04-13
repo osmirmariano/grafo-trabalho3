@@ -1,0 +1,3 @@
+Trabalho 3: Montar grafo via terminal (C, C++ ou Java)
+
+O trabalho 3, deve ser implementado em uma das linguagens informadas. Onde o usuário vai informar o grafo via teclado, dando entrada nos subconjuntos de vértices e arestas. Quando terminar de montar o grafo deve aparecer o menu com as mesmas opções do trabalho apresentado na aula anterior: mostrar matriz adjacência, laplaciana, diagonal, incidência, vizinhança, etc.
