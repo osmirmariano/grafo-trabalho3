@@ -105,7 +105,7 @@ int main(int argc, char const *argv[]){
                     grafos->vizinhancaVertice(nVertice, vertice);
                 break;
             case 7:
-                grafos->mostrarArestas(origem, destino, nVertice, mArestas);
+                grafos->mostrarArestas(nVertice);
                 break;
             case 0:
                 cout << "\t PROGRAMA ENCERRADO COM SUCESSO!\n \t VOLTE EM BREVE!" << endl;

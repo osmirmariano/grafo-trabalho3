@@ -6,14 +6,15 @@ using namespace std;
 class Grafos{
 	public:
         int origem, destino, vertice, inicio;
-        int **matriz, **matrizD, **matrizL, **matrizI;
+        int **matriz, **matrizD, **matrizL, **matrizI, *vetor;
 
     public:
     //Construtor
     Grafos(){
     	//void grafo(int nVertice);
+    	/*
     	void adicionarVertice(int nVertice);
-    	void adicionarAresta(int origem, int destino);
+    	void adicionarAresta(int origem, int destino);*/
     };
 
     Grafos(int origem, int destino, int vertice){
@@ -41,37 +42,33 @@ class Grafos{
 
     /*---------------------------FUNÇÃO ADICIONAR ARESTAS--------------------------*/
     void adicionarAresta(int origem, int destino, int nVertice, int mArestas){
-		/*matriz = adicionarVertice(nVertice);*/
-		if (origem == destino){
-			 //Teste para não ter laço em um vértice 
+		if (origem == destino)//Teste para não ter laço em um vértice 
 			cout << "Primeiro e segundo vértices são iguais, não é permitido!" << endl;
-		}
-		//Verifica se a aresta já existe
-		else{
+		else{//Verifica se a aresta já existe
 			if((matriz[origem][destino] == 1) || (matriz[destino][origem] == 1))
-				cout << "A aresta " << origem << " ----------- " << destino << " já existe" << endl;
-			else{
-				//Cria aresta na matriz
+				cout << "ARESTA: (" << origem << ", " << destino << ") já existe" << endl;
+			else{//Cria aresta na matriz
 				matriz[origem][destino] = 1;
 				matriz[destino][origem] = 1;
 				inicio++;
-				cout << "Aresta " << origem << " ----------- " << destino << " criada com sucesso" << endl;
+				cout << "\t \n ARESTA: (" << origem << ", " << destino << ")" << endl;
 			}
 		}
     };
 	
 	/*---------------------------FUNÇÃO MOSTRAR ARESTAS--------------------------*/
-    void mostrarArestas(int origem, int destino, int nVertice, int mArestas){
-		if(origem != destino){
-			for(origem = 1; origem <= nVertice; origem++){
-				for(destino = 1; destino <= mArestas; destino++){
-					if(matriz[origem][destino] == 1 && matriz[destino][origem] == 1) 
-						cout << "(" << origem << ", " << destino << "); ";
-				}
-
-			}
-		}
-	}
+    void mostrarArestas(int nVertice){
+    	vetor = (int*)malloc(nVertice*sizeof(int));
+		for(int x = 1; x <= nVertice; x++){
+            for(int y = 1; y <= nVertice; y++){
+                if(matriz[y][x] == 1){
+                    if (x < y){
+                        cout << "(" << x+1 << ", " << y+1 << "); "; 
+                    }
+                }                       
+            }
+        }
+	};
 
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ ADJACÊNCIA--------------------------*/
 	int mostrarAdjacencia(int nVertice){
@@ -82,7 +79,6 @@ class Grafos{
 			}
 			cout << "" << endl;
 		}		
-
 	};
 
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ DIAGONAL---------------------------*/
@@ -114,7 +110,6 @@ class Grafos{
 
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ LAPLACIANA---------------------------*/
 	int mostrarLaplaciana(int nVertice){
-		//matrizLa = mostrarDiagonal(nVertice);
 		int x, y;
 		matrizL = (int **) malloc(nVertice*sizeof(int*));
 		for(x = 1; x <= nVertice; x++){
@@ -130,22 +125,30 @@ class Grafos{
 
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ INCIDÊNCIA---------------------------*/
 	int mostrarIncidencia(int nVertice, int mArestas){
-		int x, y;
+		int cont = 0;
+    	vetor = (int*)malloc(nVertice*sizeof(int));
 		matrizI = (int **) malloc(nVertice*sizeof(int*));
-		for(x = 1; x <= nVertice; x++){
+		for(int x = 1; x <= nVertice; x++){
 			matrizI[x] = (int *) malloc(nVertice*sizeof(int));
-			for(y = 1; y <= mArestas; y++){
+			for(int y = 1; y <= mArestas; y++){
 				matrizI[x][y] = matriz[x][y];
-				if(matrizI[x][y]==1){
-					matrizI[x][y-1] = 1;
+				if(matrizI[x][y] == 1){
+					if (x < y){
+						cont++;
+						vetor[y] = cont;
+						cout << "CONT: " << vetor[y] << endl;
+					}
 				}
-				else{
-					matrizI[x][y] = 0;
-				}
-				cout << "     " << matrizI[x][y];
+
 			}
 			cout << "" << endl;
 		}
+		
+
+
+
+		
+		
 	};
 
 	/*---------------------------------FUNÇÃO GRAU VÉRTICE---------------------------------*/
