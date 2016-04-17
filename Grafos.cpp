@@ -5,8 +5,8 @@ using namespace std;
 
 class Grafos{
 	public:
-        int origem, destino, vertice, inicio;
-        int **matriz, **matrizD, **matrizL, **matrizI, *vetor;
+        int origem, destino, vertice;
+        int **matriz, **matrizO, **matrizD, **matrizL, **matrizI, *vetorAresta1, *vetorAresta2;
 
     public:
     //Construtor
@@ -39,7 +39,6 @@ class Grafos{
 	    	}
     	}
     };
-
     /*---------------------------FUNÇÃO ADICIONAR ARESTAS--------------------------*/
     void adicionarAresta(int origem, int destino, int nVertice, int mArestas){
 		if (origem == destino)//Teste para não ter laço em um vértice 
@@ -50,7 +49,6 @@ class Grafos{
 			else{//Cria aresta na matriz
 				matriz[origem][destino] = 1;
 				matriz[destino][origem] = 1;
-				inicio++;
 				cout << "\t \n ARESTA: (" << origem << ", " << destino << ")" << endl;
 			}
 		}
@@ -58,7 +56,6 @@ class Grafos{
 	
 	/*---------------------------FUNÇÃO MOSTRAR ARESTAS--------------------------*/
     void mostrarArestas(int nVertice){
-    	vetor = (int*)malloc(nVertice*sizeof(int));
 		for(int x = 1; x <= nVertice; x++){
             for(int y = 1; y <= nVertice; y++){
                 if(matriz[y][x] == 1){
@@ -123,33 +120,47 @@ class Grafos{
 		}
 	};
 
+	void mostarVetoresArestas(int nVertice){
+		int k = 0;
+		vetorAresta1 = (int*) malloc(nVertice*sizeof(int));
+		vetorAresta2 = (int*) malloc(nVertice*sizeof(int));
+		for(int x = 1; x <= nVertice; x++){
+		    for(int y = 1; y <= nVertice; y++){
+		        if(matriz[y][x] == 1){
+		            if (x < y){
+						vetorAresta1[k] = x;
+						vetorAresta2[k] = y;
+						k++;
+		            }
+		        }  
+		    }
+		}
+		
+	};
+
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ INCIDÊNCIA---------------------------*/
-	int mostrarIncidencia(int nVertice, int mArestas){
-		int cont = 0;
-    	vetor = (int*)malloc(nVertice*sizeof(int));
+	void mostrarIncidencia(int nVertice, int mArestas){
+		mostarVetoresArestas(nVertice);
+		int  w = 0;
 		matrizI = (int **) malloc(nVertice*sizeof(int*));
 		for(int x = 1; x <= nVertice; x++){
 			matrizI[x] = (int *) malloc(nVertice*sizeof(int));
+			cout << " " << endl;
 			for(int y = 1; y <= mArestas; y++){
-				matrizI[x][y] = matriz[x][y];
-				if(matrizI[x][y] == 1){
-					if (x < y){
-						cont++;
-						vetor[y] = cont;
-						cout << "CONT: " << vetor[y] << endl;
-					}
-				}
-
+				if((x == vetorAresta1[w] && y == vetorAresta2[w]) || (x == vetorAresta2[w] || y == vetorAresta1[w]))
+					matrizI[x][y] = 1;
+				else
+					matrizI[x][y] = 0;
+				cout << "     " << matrizI[x][y];
+				//cout << "(" << vetorAresta1[w] << ",  " << vetorAresta2[w] << ") ";
 			}
-			cout << "" << endl;
-		}
-		
-
-
-
-		
+			w++;
+			cout << " " << endl;
+		}	
 		
 	};
+
+	
 
 	/*---------------------------------FUNÇÃO GRAU VÉRTICE---------------------------------*/
 	void grauVertice(int nVertice, int vertice){

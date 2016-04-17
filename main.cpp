@@ -8,8 +8,10 @@ int main(int argc, char const *argv[]){
 	
     Grafos *grafos = new Grafos();
 
+
     cout << endl << "INFORME A QUANTIDADE DE VÉRTICE: " << endl;
     cin >> nVertice;
+    
     grafos->adicionarVertice(nVertice);
     
     cout << "INFORME A QUANTIDADE DE ARESTAS: " << endl;
@@ -25,7 +27,7 @@ int main(int argc, char const *argv[]){
         if((origem > nVertice) || (destino > nVertice))
             cout << "\tO VALOR INFORMADO É SUPERIOR A QUANTIDADE DE VÉRTICES!" << endl;
         else
-            grafos->adicionarAresta(origem, destino, nVertice, mArestas); 
+           grafos->adicionarAresta(origem, destino, nVertice, mArestas); 
     }
 
     do{
