@@ -6,7 +6,7 @@ using namespace std;
 class Grafos{
 	public:
         int origem, destino, vertice;
-        int **matriz, **matrizO, **matrizD, **matrizL, **matrizI, *vetorAresta1, *vetorAresta2;
+        int **matriz, **matrizD, **matrizL, **matrizI, *vetorAresta1, *vetorAresta2;
 
     public:
     //Construtor
@@ -39,6 +39,7 @@ class Grafos{
 	    	}
     	}
     };
+
     /*---------------------------FUNÇÃO ADICIONAR ARESTAS--------------------------*/
     void adicionarAresta(int origem, int destino, int nVertice, int mArestas){
 		if (origem == destino)//Teste para não ter laço em um vértice 
@@ -67,8 +68,26 @@ class Grafos{
         }
 	};
 
+	void mostarVetoresArestas(int nVertice){
+		int k = 0;
+		vetorAresta1 = (int*) malloc(nVertice*sizeof(int));
+		vetorAresta2 = (int*) malloc(nVertice*sizeof(int));
+		for(int x = 1; x <= nVertice; x++){
+		    for(int y = 1; y <= nVertice; y++){
+		        if(matriz[y][x] == 1){
+		            if (x < y){
+						vetorAresta1[k] = x;
+						vetorAresta2[k] = y;
+						k++;
+		            }
+		        }  
+		    }
+		}
+		
+	};
+
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ ADJACÊNCIA--------------------------*/
-	int mostrarAdjacencia(int nVertice){
+	void mostrarAdjacencia(int nVertice){
 		for (int x = 1; x <= nVertice; x++){
 			cout << "" << endl;
 			for (int y = 1; y <= nVertice; y++){
@@ -79,7 +98,7 @@ class Grafos{
 	};
 
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ DIAGONAL---------------------------*/
-	int mostrarDiagonal(int nVertice){
+	void mostrarDiagonal(int nVertice){
 		int cont = 0;
 		matrizD = (int **) malloc(nVertice*sizeof(int*));
 		for (int x = 1; x <= nVertice; x++){
@@ -105,14 +124,36 @@ class Grafos{
 		}
 	};
 
+	void mostrarDiagonalL(int nVertice){
+		int cont = 0;
+		matrizD = (int **) malloc(nVertice*sizeof(int*));
+		for (int x = 1; x <= nVertice; x++){
+			matrizD[x] = (int *) malloc(nVertice*sizeof(int));
+			for (int y = 1; y <= nVertice; y++){
+				matrizD[x][y] = matriz[x][y];
+				if(matrizD[x][y] == 1)
+					cont++;
+			}
+			for (int y = 1; y <= nVertice; y++){
+				if(x == y){
+					matrizD[x][y] = cont;
+				}
+				else{
+					matrizD[x][y] = 0;
+				}
+			}
+			cont = 0;
+		}
+	};
+
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ LAPLACIANA---------------------------*/
-	int mostrarLaplaciana(int nVertice){
-		int x, y;
+	void mostrarLaplaciana(int nVertice){
+		mostrarDiagonalL(nVertice);
 		matrizL = (int **) malloc(nVertice*sizeof(int*));
-		for(x = 1; x <= nVertice; x++){
-			matrizL[x] = (int *) malloc(nVertice*sizeof(int));
+		for(int x = 1; x <= nVertice; x++){
 			cout << "" << endl;
-			for (y = 1; y <= nVertice; y++){
+			matrizL[x] = (int *) malloc(nVertice*sizeof(int));
+			for (int y = 1; y <= nVertice; y++){
 				matrizL[x][y] = (matrizD[x][y]-matriz[x][y]);
 				cout << "     " << matrizL[x][y];
 			}
@@ -120,24 +161,7 @@ class Grafos{
 		}
 	};
 
-	void mostarVetoresArestas(int nVertice){
-		int k = 0;
-		vetorAresta1 = (int*) malloc(nVertice*sizeof(int));
-		vetorAresta2 = (int*) malloc(nVertice*sizeof(int));
-		for(int x = 1; x <= nVertice; x++){
-		    for(int y = 1; y <= nVertice; y++){
-		        if(matriz[y][x] == 1){
-		            if (x < y){
-						vetorAresta1[k] = x;
-						vetorAresta2[k] = y;
-						k++;
-		            }
-		        }  
-		    }
-		}
-		
-	};
-
+	
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ INCIDÊNCIA---------------------------*/
 	void mostrarIncidencia(int nVertice, int mArestas){
 		mostarVetoresArestas(nVertice);
