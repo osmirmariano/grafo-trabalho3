@@ -40,7 +40,7 @@ int main(int argc, char const *argv[]){
         cout << " 4 -- VISUALIZAR MATRIZ LAPLACIANA " << endl;
         cout << " 5 -- VISUALIZAR O GRAU DE UM VÉRTICE " << endl;
         cout << " 6 -- VISUALIZAR VIZINHANÇA DE UM VÉRTICE " << endl;
-        cout << " 7 -- VISUALIZAR TODAS AS POSSIBILIDADE DE ARESTAS " << endl;
+        cout << " 7 -- VISUALIZAR TODAS AS ARESTAS " << endl;
         cout << " 0 -- SAIR " << endl;
         cout << "-------------------------------------------------------" << endl;
         cout << "OPÇÃO: ";
@@ -50,37 +50,37 @@ int main(int argc, char const *argv[]){
         switch(op){
             case 1:
                 cout << endl << "-------------------------------------------------------" << endl;
-                cout << "\t MAATRIZ DE ADJACÊNCIA" << endl;
+                cout << "\t MATRIZ DE ADJACÊNCIA" << endl;
                 cout << "-------------------------------------------------------" << endl;
-                if (nVertice == 0)
-                    cout << "NÃO FOI DEFINIDO NENHUM TIPO DE GRAFOS" << endl;
+                if (nVertice == 0 || mArestas == 0)
+                    cout << " NÃO FOI DEFINIDO NENHUM TIPO DE GRAFO" << endl;
                 else
                     grafos->mostrarAdjacencia(nVertice);
                 break;
             case 2:
                 cout << endl << "-------------------------------------------------------" << endl;
-                cout << "\t MAATRIZ DIAGONAL" << endl;
+                cout << "\t MATRIZ DIAGONAL" << endl;
                 cout << "-------------------------------------------------------" << endl;
-                if (nVertice == 0)
-                    cout << "NÃO FOI DEFINIDO NENHUM TIPO DE GRAFOS" << endl;
+                if (nVertice == 0 || mArestas == 0)
+                    cout << " NÃO FOI DEFINIDO NENHUM TIPO DE GRAFO" << endl;
                 else
                     grafos->mostrarDiagonal(nVertice);
                 break;
             case 3:
                 cout << endl << "-------------------------------------------------------" << endl;
-                cout << "\t MAATRIZ DE INCIDÊNCIA" << endl;
+                cout << "\t MATRIZ DE INCIDÊNCIA" << endl;
                 cout << "-------------------------------------------------------" << endl;
-                if (nVertice == 0)
-                    cout << "NÃO FOI DEFINIDO NENHUM TIPO DE GRAFOS" << endl;
+                if (nVertice == 0 || mArestas == 0)
+                    cout << " NÃO FOI DEFINIDO NENHUM TIPO DE GRAFO" << endl;
                 else
                     grafos->mostrarIncidencia(nVertice, mArestas);
                 break;
             case 4:
                 cout << endl << "-------------------------------------------------------" << endl;
-                cout << "\t MAATRIZ LAPLACIANA" << endl;
+                cout << "\t MATRIZ LAPLACIANA" << endl;
                 cout << "-------------------------------------------------------" << endl;
-                if (nVertice == 0)
-                    cout << "\tNÃO FOI DEFINIDO NENHUM TIPO DE GRAFOS. DIGITE UM VALOR VÁLIDO!" << endl;
+                if (nVertice == 0 || mArestas == 0)
+                    cout << " NÃO FOI DEFINIDO NENHUM TIPO DE GRAFO!" << endl;
                 else
                    grafos->mostrarLaplaciana(nVertice);
                 break;
@@ -90,8 +90,8 @@ int main(int argc, char const *argv[]){
                 cout << "-------------------------------------------------------" << endl;
                 cout << "INFORME O VÉRTICE QUE DESEJA SABER SEU GRAU: " << endl;
                 cin >> vertice;
-                if (vertice > nVertice)
-                    cout << "\tNÃO FOI DEFINIDO NENHUM TIPO DE GRAFOS. DIGITE UM VALOR VÁLIDO!" << endl;
+                if (vertice > nVertice || mArestas == 0 || nVertice == 0)
+                    cout << " NÃO FOI DEFINIDO NENHUM TIPO DE GRAFO!" << endl;
                 else
                     grafos->grauVertice(nVertice, vertice);
                 break;
@@ -101,13 +101,19 @@ int main(int argc, char const *argv[]){
                 cout << "-------------------------------------------------------" << endl;
                 cout << "INFORME O VÉRTICE QUE DESEJA SABER SUA VIZINHANÇA: " << endl;
                 cin >> vertice;
-                if (vertice > nVertice)
-                    cout << "O VALOR ULTRAPASSA O NÚMERO DE VÉRTICES!" << endl;
+                if (vertice > nVertice || mArestas == 0 || nVertice == 0)
+                    cout << endl << " O VALOR ULTRAPASSA O NÚMERO DE VÉRTICES \n OU NÃO FOI DEFINIDO NENHUM GRAFO!" << endl << endl;
                 else
                     grafos->vizinhancaVertice(nVertice, vertice);
                 break;
             case 7:
-                grafos->mostrarArestas(nVertice);
+                cout << endl << "-------------------------------------------------------" << endl;
+                cout << "\t ARESTAS DEFINIDAS" << endl;
+                cout << "-------------------------------------------------------" << endl << endl;
+                if(mArestas == 0)
+                    cout << " NÃO EXISTE NENHUMA ARESTA!" << endl;
+                else
+                    grafos->mostrarArestas(nVertice);
                 break;
             case 0:
                 cout << "\t PROGRAMA ENCERRADO COM SUCESSO!\n \t VOLTE EM BREVE!" << endl;
@@ -118,4 +124,4 @@ int main(int argc, char const *argv[]){
     }while(op != 0);
 
 	return 0;
-}
+};

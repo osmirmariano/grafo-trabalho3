@@ -11,21 +11,32 @@ class Grafos{
     public:
     //Construtor
     Grafos(){
-    	//void grafo(int nVertice);
-    	/*
     	void adicionarVertice(int nVertice);
-    	void adicionarAresta(int origem, int destino);*/
+    	void adicionarAresta(int origem, int destino, int nVertice, int mArestas);
+    	void mostrarArestas(int nVertice);
+    	void mostarVetoresArestas(int nVertice);
+    	void mostrarAdjacencia(int nVertice);
+    	void mostrarDiagonal(int nVertice);
+    	void mostrarDiagonalL(int nVertice);
+    	void mostrarLaplaciana(int nVertice);
+    	void mostrarIncidencia(int nVertice, int mArestas);
+    	void grauVertice(int nVertice, int vertice);
+    	void vizinhancaVertice(int nVertice, int vertice);
     };
 
     Grafos(int origem, int destino, int vertice){
     	this->origem = origem;
     	this->destino = destino;   	
     	this->vertice = vertice;
+    	this->matriz =  matriz;
+    	this->matrizI = matrizI;
     	this->matrizD = matrizD;
-    }
+    	this->matrizL = matrizL;
+    };
     
+
     /*---------------------------FUNÇÃO ADICIONAR VÉRTICES--------------------------*/
-    int adicionarVertice(int nVertice){
+    void adicionarVertice(int nVertice){
     	int x, y;
     	matriz = (int **) malloc(nVertice*sizeof(int*));
     	if (matriz == NULL){
@@ -40,6 +51,7 @@ class Grafos{
 	    	}
     	}
     };
+
 
     /*---------------------------FUNÇÃO ADICIONAR ARESTAS--------------------------*/
     void adicionarAresta(int origem, int destino, int nVertice, int mArestas){
@@ -69,6 +81,7 @@ class Grafos{
         }
 	};
 
+	/*----------------------FUNÇÃO MOSTRAR VETOR COM ARESTA-----------------------*/
 	void mostarVetoresArestas(int nVertice){
 		int k = 0;
 		vetorAresta1 = (int*) malloc(nVertice*sizeof(int));
@@ -125,6 +138,7 @@ class Grafos{
 		}
 	};
 
+	/*---------------------------FUNÇÃO MOSTRAR MATRIZ DIAGONAL 2--------------------------*/
 	void mostrarDiagonalL(int nVertice){
 		int cont = 0;
 		matrizD = (int **) malloc(nVertice*sizeof(int*));
@@ -177,7 +191,6 @@ class Grafos{
 				else
 					matrizI[x][y] = 0;
 				cout << "     " << matrizI[x][y];
-				//cout << "(" << vetorAresta1[w] << ",  " << vetorAresta2[w] << ") ";
 				w++;
 			}
 			w=0;
@@ -222,21 +235,3 @@ class Grafos{
 		}
 	};
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
