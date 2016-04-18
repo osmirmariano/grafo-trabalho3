@@ -21,6 +21,7 @@ class Grafos{
     	this->origem = origem;
     	this->destino = destino;   	
     	this->vertice = vertice;
+    	this->matrizD = matrizD;
     }
     
     /*---------------------------FUNÇÃO ADICIONAR VÉRTICES--------------------------*/
@@ -171,14 +172,15 @@ class Grafos{
 			matrizI[x] = (int *) malloc(nVertice*sizeof(int));
 			cout << " " << endl;
 			for(int y = 1; y <= mArestas; y++){
-				if((x == vetorAresta1[w] && y == vetorAresta2[w]) || (x == vetorAresta2[w] || y == vetorAresta1[w]))
+				if( x == vetorAresta1[w] || x == vetorAresta2[w] )
 					matrizI[x][y] = 1;
 				else
 					matrizI[x][y] = 0;
 				cout << "     " << matrizI[x][y];
 				//cout << "(" << vetorAresta1[w] << ",  " << vetorAresta2[w] << ") ";
+				w++;
 			}
-			w++;
+			w=0;
 			cout << " " << endl;
 		}	
 		
