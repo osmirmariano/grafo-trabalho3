@@ -37,15 +37,16 @@ class Grafos{
 
     /*---------------------------FUNÇÃO ADICIONAR VÉRTICES--------------------------*/
     void adicionarVertice(int nVertice){
+    	cout << "v" << nVertice << endl;
     	int x, y;
     	matriz = (int **) malloc(nVertice*sizeof(int*));
     	if (matriz == NULL){
     		cout << "Não foi alocado" << endl;
     	}
     	else{
-    		for (x = 1; x <= nVertice; x++){
+    		for (x = 0; x < nVertice; x++){
     			matriz[x] = (int *) malloc(nVertice*sizeof(int));
-	    		for (y = 1; y <= nVertice; y++){
+	    		for (y = 0; y < nVertice; y++){
 	    			matriz[x][y] = 0;
 	    		}
 	    	}
@@ -70,8 +71,8 @@ class Grafos{
 	
 	/*---------------------------FUNÇÃO MOSTRAR ARESTAS--------------------------*/
     void mostrarArestas(int nVertice){
-		for(int x = 1; x <= nVertice; x++){
-            for(int y = 1; y <= nVertice; y++){
+		for(int x = 0; x < nVertice; x++){
+            for(int y = 0; y < nVertice; y++){
                 if(matriz[y][x] == 1){
                     if (x < y){
                         cout << "(" << x+1 << ", " << y+1 << "); "; 
@@ -86,8 +87,8 @@ class Grafos{
 		int k = 0;
 		vetorAresta1 = (int*) malloc(nVertice*sizeof(int));
 		vetorAresta2 = (int*) malloc(nVertice*sizeof(int));
-		for(int x = 1; x <= nVertice; x++){
-		    for(int y = 1; y <= nVertice; y++){
+		for(int x = 0; x < nVertice; x++){
+		    for(int y = 0; y < nVertice; y++){
 		        if(matriz[y][x] == 1){
 		            if (x < y){
 						vetorAresta1[k] = x;
@@ -102,10 +103,10 @@ class Grafos{
 
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ ADJACÊNCIA--------------------------*/
 	void mostrarAdjacencia(int nVertice){
-		for (int x = 1; x <= nVertice; x++){
+		for (int x = 0; x < nVertice; x++){
 			cout << "" << endl;
-			for (int y = 1; y <= nVertice; y++){
-				cout << "     " << matriz[x][y];
+			for (int y = 0; y < nVertice; y++){
+				cout << "  " << matriz[x][y];
 			}
 			cout << "" << endl;
 		}		
@@ -115,22 +116,22 @@ class Grafos{
 	void mostrarDiagonal(int nVertice){
 		int cont = 0;
 		matrizD = (int **) malloc(nVertice*sizeof(int*));
-		for (int x = 1; x <= nVertice; x++){
+		for (int x = 0; x < nVertice; x++){
 			cout << "" << endl;
 			matrizD[x] = (int *) malloc(nVertice*sizeof(int));
-			for (int y = 1; y <= nVertice; y++){
+			for (int y = 0; y < nVertice; y++){
 				matrizD[x][y] = matriz[x][y];
 				if(matrizD[x][y] == 1)
 					cont++;
 			}
-			for (int y = 1; y <= nVertice; y++){
+			for (int y = 0; y < nVertice; y++){
 				if(x == y){
 					matrizD[x][y] = cont;
-					cout << "     " << matrizD[x][y];
+					cout << "  " << matrizD[x][y];
 				}
 				else{
 					matrizD[x][y] = 0;
-					cout << "     " << matrizD[x][y];
+					cout << "  " << matrizD[x][y];
 				}
 			}
 			cont = 0;
@@ -142,14 +143,14 @@ class Grafos{
 	void mostrarDiagonalL(int nVertice){
 		int cont = 0;
 		matrizD = (int **) malloc(nVertice*sizeof(int*));
-		for (int x = 1; x <= nVertice; x++){
+		for (int x = 0; x < nVertice; x++){
 			matrizD[x] = (int *) malloc(nVertice*sizeof(int));
-			for (int y = 1; y <= nVertice; y++){
+			for (int y = 0; y < nVertice; y++){
 				matrizD[x][y] = matriz[x][y];
 				if(matrizD[x][y] == 1)
 					cont++;
 			}
-			for (int y = 1; y <= nVertice; y++){
+			for (int y = 0; y < nVertice; y++){
 				if(x == y){
 					matrizD[x][y] = cont;
 				}
@@ -165,12 +166,12 @@ class Grafos{
 	void mostrarLaplaciana(int nVertice){
 		mostrarDiagonalL(nVertice);
 		matrizL = (int **) malloc(nVertice*sizeof(int*));
-		for(int x = 1; x <= nVertice; x++){
+		for(int x = 0; x < nVertice; x++){
 			cout << "" << endl;
 			matrizL[x] = (int *) malloc(nVertice*sizeof(int));
-			for (int y = 1; y <= nVertice; y++){
+			for (int y = 0; y < nVertice; y++){
 				matrizL[x][y] = (matrizD[x][y]-matriz[x][y]);
-				cout << "     " << matrizL[x][y];
+				cout << "  " << matrizL[x][y];
 			}
 			cout << "" << endl;
 		}
@@ -182,15 +183,15 @@ class Grafos{
 		mostarVetoresArestas(nVertice);
 		int  w = 0;
 		matrizI = (int **) malloc(nVertice*sizeof(int*));
-		for(int x = 1; x <= nVertice; x++){
+		for(int x = 0; x < nVertice; x++){
 			matrizI[x] = (int *) malloc(nVertice*sizeof(int));
 			cout << " " << endl;
-			for(int y = 1; y <= mArestas; y++){
+			for(int y = 0; y < mArestas; y++){
 				if( x == vetorAresta1[w] || x == vetorAresta2[w] )
 					matrizI[x][y] = 1;
 				else
 					matrizI[x][y] = 0;
-				cout << "     " << matrizI[x][y];
+				cout << "  " << matrizI[x][y];
 				w++;
 			}
 			w=0;
@@ -205,8 +206,8 @@ class Grafos{
 	void grauVertice(int nVertice, int vertice){
 		int cont = 0, linha = 0;
 
-		for (int x = 1; x <= nVertice; x++){
-			for (int y = 1; y <= nVertice; y++){
+		for (int x = 0; x < nVertice; x++){
+			for (int y = 0; y < nVertice; y++){
 				if(matriz[x][y] == 1)
 					cont++;
 			}
@@ -225,8 +226,8 @@ class Grafos{
 		int vizinho;
 		cout << endl << "-------------------------------------------------------"<< endl;
 		cout << "Vizinhos: ";
-		for(int x = 1; x <= nVertice; x++){
-			for(int y = 1; y <= nVertice; y++){
+		for(int x = 0; x < nVertice; x++){
+			for(int y = 0; y < nVertice; y++){
 				if(matriz[x][y] == 1 && vertice == linha){
 					cout << " " << y;
 				}

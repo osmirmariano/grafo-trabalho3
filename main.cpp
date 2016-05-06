@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char const *argv[]){
 	int op, origem, destino, nVertice, mArestas, vertice; 
 	
-    Grafos *grafos = new Grafos();
+    Grafos *grafos = new Grafos(origem, destino, vertice);
 
 
     cout << endl << "INFORME A QUANTIDADE DE VÉRTICE: " << endl;
