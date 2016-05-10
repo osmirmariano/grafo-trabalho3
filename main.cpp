@@ -33,7 +33,6 @@ int main(int argc, char const *argv[]){
            vetorAresta2[k] = destino;
            k++;
     }
-    //grafos->mostarVetoresArestas(mArestas, vetorAresta1, vetorAresta2);
 
     do{
         cout << endl << "-------------------------------------------------------" << endl;
