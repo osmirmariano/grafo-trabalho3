@@ -16,7 +16,8 @@ int main(int argc, char const *argv[]){
     
     cout << "INFORME A QUANTIDADE DE ARESTAS: " << endl;
     cin >> mArestas;
-    
+    int  vetorAresta1[mArestas], vetorAresta2[mArestas];
+    int k = 0;
     for(int x = 0; x < mArestas; x++){
         cout << "-------------------------------------------------------" << endl;
         cout << "INFORME O PRIMEIRO VÉRTICE: " << endl;
@@ -27,8 +28,12 @@ int main(int argc, char const *argv[]){
         if((origem > nVertice) || (destino > nVertice))
             cout << "\tO VALOR INFORMADO É SUPERIOR A QUANTIDADE DE VÉRTICES!" << endl;
         else
-           grafos->adicionarAresta(origem, destino, nVertice, mArestas); 
+           grafos->adicionarAresta(origem, destino, nVertice, mArestas);
+           vetorAresta1[k] = origem;
+           vetorAresta2[k] = destino;
+           k++;
     }
+    //grafos->mostarVetoresArestas(mArestas, vetorAresta1, vetorAresta2);
 
     do{
         cout << endl << "-------------------------------------------------------" << endl;
@@ -73,7 +78,7 @@ int main(int argc, char const *argv[]){
                 if (nVertice == 0 || mArestas == 0)
                     cout << " NÃO FOI DEFINIDO NENHUM TIPO DE GRAFO" << endl;
                 else
-                    grafos->mostrarIncidencia(nVertice, mArestas);
+                    grafos->mostrarIncidencia(nVertice, mArestas,vetorAresta1, vetorAresta2);
                 break;
             case 4:
                 cout << endl << "-------------------------------------------------------" << endl;

@@ -5,7 +5,7 @@ using namespace std;
 
 class Grafos{
 	public:
-        int origem, destino, vertice;
+        int origem, destino, vertice, k;
         int **matriz, **matrizD, **matrizL, **matrizI, *vetorAresta1, *vetorAresta2;
 
     public:
@@ -31,13 +31,13 @@ class Grafos{
     	this->matriz =  matriz;
     	this->matrizI = matrizI;
     	this->matrizD = matrizD;
-    	this->matrizL = matrizL;
+    	this->matrizL = matrizL; 
+    	this->k = 0;
     };
     
 
     /*---------------------------FUNÇÃO ADICIONAR VÉRTICES--------------------------*/
     void adicionarVertice(int nVertice){
-    	cout << "v" << nVertice << endl;
     	int x, y;
     	matriz = (int **) malloc(nVertice*sizeof(int*));
     	if (matriz == NULL){
@@ -59,12 +59,12 @@ class Grafos{
 		if (origem == destino)//Teste para não ter laço em um vértice 
 			cout << "Primeiro e segundo vértices são iguais, não é permitido!" << endl;
 		else{//Verifica se a aresta já existe
-			if((matriz[origem][destino] == 1) || (matriz[destino][origem] == 1))
+			if((matriz[origem-1][destino-1] == 1) || (matriz[destino-1][origem-1] == 1))
 				cout << "ARESTA: (" << origem << ", " << destino << ") já existe" << endl;
 			else{//Cria aresta na matriz
-				matriz[origem][destino] = 1;
-				matriz[destino][origem] = 1;
-				cout << "\t \n ARESTA: (" << origem << ", " << destino << ")" << endl;
+				matriz[origem-1][destino-1] = 1;
+				matriz[destino-1][origem-1] = 1;
+				cout << "\t \n ARESTA: (" << origem << ", " << destino << ")" << endl; 
 			}
 		}
     };
@@ -83,22 +83,12 @@ class Grafos{
 	};
 
 	/*----------------------FUNÇÃO MOSTRAR VETOR COM ARESTA-----------------------*/
-	void mostarVetoresArestas(int nVertice){
-		int k = 0;
-		vetorAresta1 = (int*) malloc(nVertice*sizeof(int));
-		vetorAresta2 = (int*) malloc(nVertice*sizeof(int));
-		for(int x = 0; x < nVertice; x++){
-		    for(int y = 0; y < nVertice; y++){
-		        if(matriz[y][x] == 1){
-		            if (x < y){
-						vetorAresta1[k] = x;
-						vetorAresta2[k] = y;
-						k++;
-		            }
-		        }  
-		    }
-		}
-		
+	void mostarVetoresArestas(int mArestas, int *vetorAresta1, int *vetorAresta2){
+	    int k = 0;
+	    for(int x = 0; x < mArestas; x++){
+	        cout << " aresta: " << vetorAresta1[x] << vetorAresta2[x] << endl;
+	    }
+
 	};
 
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ ADJACÊNCIA--------------------------*/
@@ -179,22 +169,21 @@ class Grafos{
 
 	
 	/*---------------------------FUNÇÃO MOSTRAR MATRIZ INCIDÊNCIA---------------------------*/
-	void mostrarIncidencia(int nVertice, int mArestas){
-		mostarVetoresArestas(nVertice);
+	void mostrarIncidencia(int nVertice, int mArestas, int *vetorAresta1, int *vetorAresta2){
 		int  w = 0;
 		matrizI = (int **) malloc(nVertice*sizeof(int*));
 		for(int x = 0; x < nVertice; x++){
 			matrizI[x] = (int *) malloc(nVertice*sizeof(int));
 			cout << " " << endl;
 			for(int y = 0; y < mArestas; y++){
-				if( x == vetorAresta1[w] || x == vetorAresta2[w] )
+				if(x+1 == vetorAresta1[w] || x+1 == vetorAresta2[w] )
 					matrizI[x][y] = 1;
 				else
 					matrizI[x][y] = 0;
 				cout << "  " << matrizI[x][y];
 				w++;
 			}
-			w=0;
+			w = 0;
 			cout << " " << endl;
 		}	
 		
@@ -229,7 +218,7 @@ class Grafos{
 		for(int x = 0; x < nVertice; x++){
 			for(int y = 0; y < nVertice; y++){
 				if(matriz[x][y] == 1 && vertice == linha){
-					cout << " " << y;
+					cout << " " << y+1;
 				}
 			}
 			linha++;		
